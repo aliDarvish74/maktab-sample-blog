@@ -1,4 +1,4 @@
-using Maktab.Sample.Blog.Abstraction;
+using Maktab.Sample.Blog.Abstraction.Exceptions;
 
 namespace Maktab.Sample.Blog.Domain.Posts;
 
@@ -10,15 +10,31 @@ public class PostDomainException : BaseException
     }
 }
 
-public class EmptyPostTitleException : PostDomainException
+
+
+public class BaseEmptyArgumentException : PostDomainException
 {
-    public EmptyPostTitleException() : base("Post title can't be emtpy.", 1)
+    public BaseEmptyArgumentException(string argument, int sequence) : base($"{argument} can't be emtpy.", sequence)
     {
     }
 }
-public class EmptyPostTextException : PostDomainException
+
+public class EmptyPostTitleException : BaseEmptyArgumentException
 {
-    public EmptyPostTextException() : base("Post text can't be emtpy.", 2)
+    public EmptyPostTitleException() : base("Post title", 1)
+    {
+    }
+}
+
+public class EmptyPostTextException : BaseEmptyArgumentException
+{
+    public EmptyPostTextException() : base("Post text", 2)
+    {
+    }
+}
+public class EmptyAuthorIdException : BaseEmptyArgumentException
+{
+    public EmptyAuthorIdException() : base("Author id", 3)
     {
     }
 }

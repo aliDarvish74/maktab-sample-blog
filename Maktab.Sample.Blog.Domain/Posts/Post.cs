@@ -24,5 +24,8 @@ public class Post : BaseEntity
 
         if (string.IsNullOrWhiteSpace(PostText))
             throw new EmptyPostTextException();
+
+        if (AuthorId == null || AuthorId == Guid.Empty)
+            throw new EmptyAuthorIdException();
     }
 }

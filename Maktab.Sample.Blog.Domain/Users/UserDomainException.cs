@@ -1,4 +1,4 @@
-using Maktab.Sample.Blog.Abstraction;
+using Maktab.Sample.Blog.Abstraction.Exceptions;
 
 namespace Maktab.Sample.Blog.Domain.Users;
 

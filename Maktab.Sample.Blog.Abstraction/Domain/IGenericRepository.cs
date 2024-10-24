@@ -1,8 +1,7 @@
 using System.Linq.Expressions;
-using Maktab.Sample.Blog.Abstraction.Domain;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace Maktab.Sample.Blog.Abstraction;
+namespace Maktab.Sample.Blog.Abstraction.Domain;
 
 public interface IGenericRepository<T> where T : BaseEntity
 {
