@@ -31,10 +31,8 @@ public static class UserModelBuilderConfiguration
     }
 }
 
-/*public class BaseModelBuilderConfiguration<T> : IEntityTypeConfiguration<T> where T: BaseEntity
+/*public class BaseModelBuilderConfiguration<T> : IEntityTypeConfiguration<T> where T : BaseEntity
 {
-    
-
     public void Configure(EntityTypeBuilder<T> builder)
     {
         builder.HasKey(t => t.Id);
@@ -55,7 +53,7 @@ public class UserModelBuilder : BaseModelBuilderConfiguration<User>
             .HasColumnType("varchar(100)")
             .IsRequired()
             .IsUnicode();
-        
+
         builder.Property(u => u.LastName)
             .HasColumnType("varchar(100)")
             .IsRequired()

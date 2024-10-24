@@ -7,7 +7,7 @@ namespace Maktab.Sample.Blog.Persistence.Posts;
 
 public class PostRepository : GenericRepository<Post>, IPostRepository
 {
-    public PostRepository(BlogDbContext dbContext, ILogger<GenericRepository<Post>> logger) : base(dbContext, logger)
+    public PostRepository(BlogDbContext dbContext, ILogger<PostRepository> logger) : base(dbContext, logger)
     {
     }
 

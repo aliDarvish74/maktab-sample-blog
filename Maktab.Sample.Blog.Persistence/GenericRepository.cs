@@ -1,6 +1,4 @@
 using System.Linq.Expressions;
-using System.Text.Json;
-using Maktab.Sample.Blog.Abstraction;
 using Maktab.Sample.Blog.Abstraction.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
