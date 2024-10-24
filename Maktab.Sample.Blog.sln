@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maktab.Sample.Blog.Presentation", "Maktab.Sample.Blog.Presentation\Maktab.Sample.Blog.Presentation.csproj", "{B9B16879-8C90-48D5-B02E-E783D927BF1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maktab.Sample.Blog.Domain", "Maktab.Sample.Blog.Domain\Maktab.Sample.Blog.Domain.csproj", "{CABB8B41-9EB7-4400-B214-AEEE2A501B63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{EAA8F3AE-FB7B-4943-A772-5512759699FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{E39A17D2-4F08-413B-9849-E1C2278A4796}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{5AB8DEDA-0A68-42E6-992B-BBA62711288C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maktab.Sample.Blog.Abstraction", "Maktab.Sample.Blog.Abstraction\Maktab.Sample.Blog.Abstraction.csproj", "{64D23D98-B781-4BC5-B272-4778E15B3044}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maktab.Sample.Blog.Persistence", "Maktab.Sample.Blog.Persistence\Maktab.Sample.Blog.Persistence.csproj", "{4FB3B3D3-02AE-484C-BCF6-7C7EB372A5FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{FDFC771F-82B3-482A-8475-5A7E3DF9F289}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maktab.Sample.Blog.Service", "Maktab.Sample.Blog.Service\Maktab.Sample.Blog.Service.csproj", "{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9B16879-8C90-48D5-B02E-E783D927BF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9B16879-8C90-48D5-B02E-E783D927BF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9B16879-8C90-48D5-B02E-E783D927BF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9B16879-8C90-48D5-B02E-E783D927BF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CABB8B41-9EB7-4400-B214-AEEE2A501B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABB8B41-9EB7-4400-B214-AEEE2A501B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABB8B41-9EB7-4400-B214-AEEE2A501B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABB8B41-9EB7-4400-B214-AEEE2A501B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D23D98-B781-4BC5-B272-4778E15B3044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D23D98-B781-4BC5-B272-4778E15B3044}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D23D98-B781-4BC5-B272-4778E15B3044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D23D98-B781-4BC5-B272-4778E15B3044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FB3B3D3-02AE-484C-BCF6-7C7EB372A5FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FB3B3D3-02AE-484C-BCF6-7C7EB372A5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FB3B3D3-02AE-484C-BCF6-7C7EB372A5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FB3B3D3-02AE-484C-BCF6-7C7EB372A5FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CABB8B41-9EB7-4400-B214-AEEE2A501B63} = {E39A17D2-4F08-413B-9849-E1C2278A4796}
+		{B9B16879-8C90-48D5-B02E-E783D927BF1B} = {EAA8F3AE-FB7B-4943-A772-5512759699FF}
+		{64D23D98-B781-4BC5-B272-4778E15B3044} = {5AB8DEDA-0A68-42E6-992B-BBA62711288C}
+		{4FB3B3D3-02AE-484C-BCF6-7C7EB372A5FB} = {5AB8DEDA-0A68-42E6-992B-BBA62711288C}
+		{3A03E959-63A5-4588-9D3E-BC11FDFE76AF} = {FDFC771F-82B3-482A-8475-5A7E3DF9F289}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Maktab.Sample.Blog.Domain\Maktab.Sample.Blog.Domain.csproj" />
+      <ProjectReference Include="..\Maktab.Sample.Blog.Persistence\Maktab.Sample.Blog.Persistence.csproj" />
+      <ProjectReference Include="..\Maktab.Sample.Blog.Service\Maktab.Sample.Blog.Service.csproj" />
+    </ItemGroup>
+
+</Project>
