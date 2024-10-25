@@ -1,4 +1,6 @@
 using Maktab.Sample.Blog.Abstraction.Domain;
+using Maktab.Sample.Blog.Domain.Comments;
+using Maktab.Sample.Blog.Domain.Likes;
 using Maktab.Sample.Blog.Domain.Posts;
 
 namespace Maktab.Sample.Blog.Domain.Users;
@@ -18,7 +20,9 @@ public class User : BaseEntity
     public string FirstName { get; set; }
     public string LastName { get; set; }
     
-    public List<Post> Posts { get; set; }
+    public List<Post> Posts { get; set; } = new();
+    public List<Comment> Comments { get; set; } = new();
+    public List<Like> Likes { get; set; } = new();
     protected override void Validate()
     {
         if (string.IsNullOrWhiteSpace(FirstName))

@@ -1,4 +1,6 @@
 using Maktab.Sample.Blog.Abstraction.Domain;
+using Maktab.Sample.Blog.Domain.Comments;
+using Maktab.Sample.Blog.Domain.Likes;
 using Maktab.Sample.Blog.Domain.Users;
 
 namespace Maktab.Sample.Blog.Domain.Posts;
@@ -16,6 +18,8 @@ public class Post : BaseEntity
     public string PostText { get; set; }
     public Guid AuthorId { get; set; }
     public User Author { get; set; }
+    public List<Comment> Comments { get; set; } = new();
+    public List<Like> Likes { get; set; } = new();
     
     protected override void Validate()
     {

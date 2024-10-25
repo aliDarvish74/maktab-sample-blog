@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Maktab.Sample.Blog.Persistence.Posts;
 
-public static class PostModelBuilderConfiguration
+public static class CommentModelBuilderConfiguration
 {
     public static void ConfigurePostModelBuilder(this ModelBuilder builder)
     {
@@ -13,6 +13,18 @@ public static class PostModelBuilderConfiguration
             .HasOne(p => p.Author)
             .WithMany(u => u.Posts)
             .HasForeignKey(p => p.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<Post>()
+            .HasMany(p => p.Comments)
+            .WithOne()
+            .HasForeignKey("PostId")
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.Entity<Post>()
+            .HasMany(p => p.Likes)
+            .WithOne()
+            .HasForeignKey("PostId")
             .OnDelete(DeleteBehavior.Cascade);
         
         builder.Entity<Post>()

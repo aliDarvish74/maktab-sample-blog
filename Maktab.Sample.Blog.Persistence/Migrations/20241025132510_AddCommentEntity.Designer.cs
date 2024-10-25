@@ -3,6 +3,7 @@ using System;
 using Maktab.Sample.Blog.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Maktab.Sample.Blog.Persistence.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    partial class BlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241025132510_AddCommentEntity")]
+    partial class AddCommentEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,13 +28,12 @@ namespace Maktab.Sample.Blog.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("AuthorId")
+                    b.Property<Guid?>("AuthorId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("CommentText")
                         .IsRequired()
-                        .IsUnicode(true)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -54,40 +56,7 @@ namespace Maktab.Sample.Blog.Persistence.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Likes.Like", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("PostId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Likes");
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Posts.Post", b =>
@@ -163,30 +132,14 @@ namespace Maktab.Sample.Blog.Persistence.Migrations
 
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Comments.Comment", b =>
                 {
-                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", "Author")
+                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", null)
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Maktab.Sample.Blog.Domain.Posts.Post", null)
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Likes.Like", b =>
-                {
-                    b.HasOne("Maktab.Sample.Blog.Domain.Posts.Post", null)
-                        .WithMany("Likes")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", null)
-                        .WithMany("Likes")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -204,15 +157,11 @@ namespace Maktab.Sample.Blog.Persistence.Migrations
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Posts.Post", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Users.User", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Likes");
 
                     b.Navigation("Posts");
                 });
