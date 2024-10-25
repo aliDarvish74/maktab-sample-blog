@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Maktab.Sample.Blog.Persistence;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+public class GenericRepository<T,C> : IGenericRepository<T> where T : BaseEntity where C : DbContext
 {
-    private readonly BlogDbContext _dbContext;
-    private readonly ILogger<GenericRepository<T>> _logger;
+    private readonly C _dbContext;
+    private readonly ILogger<GenericRepository<T,C>> _logger;
 
-    public GenericRepository(BlogDbContext dbContext, ILogger<GenericRepository<T>> logger)
+    public GenericRepository(C dbContext, ILogger<GenericRepository<T,C>> logger)
     {
         _dbContext = dbContext;
         _logger = logger;
@@ -27,7 +27,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         var query = _dbContext.Set<T>().AsQueryable();
         query = AsNoTracking ? query.AsNoTracking() : query;
         query = include == null ? query : include(query);
-
+         
         return await query.FirstOrDefaultAsync(x => x.Id == id);
     }
 

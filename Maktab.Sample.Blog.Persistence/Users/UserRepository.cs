@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Maktab.Sample.Blog.Persistence.Users;
 
-public class UserRepository : GenericRepository<User>, IUserRepository
+public class UserRepository : GenericRepository<User, BlogDbContext>, IUserRepository
 {
-    public UserRepository(BlogDbContext dbContext, ILogger<GenericRepository<User>> logger) : base(dbContext, logger)
+    public UserRepository(BlogDbContext dbContext, ILogger<UserRepository> logger) : base(dbContext, logger)
     {
     }
 }

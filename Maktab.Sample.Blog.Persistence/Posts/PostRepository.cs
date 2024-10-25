@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Maktab.Sample.Blog.Persistence.Posts;
 
-public class PostRepository : GenericRepository<Post>, IPostRepository
+public class PostRepository : GenericRepository<Post, BlogDbContext>, IPostRepository
 {
     public PostRepository(BlogDbContext dbContext, ILogger<PostRepository> logger) : base(dbContext, logger)
     {

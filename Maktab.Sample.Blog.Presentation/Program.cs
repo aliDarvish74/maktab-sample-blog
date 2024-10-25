@@ -1,4 +1,3 @@
-using Maktab.Sample.Blog.Abstraction;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Persistence;

@@ -1,4 +1,6 @@
+using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Domain.Posts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Maktab.Sample.Blog.Service.Posts;
 
