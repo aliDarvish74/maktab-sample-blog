@@ -8,8 +8,8 @@ namespace Maktab.Sample.Blog.Persistence;
 
 public class GenericRepository<T,C> : IGenericRepository<T> where T : BaseEntity where C : DbContext
 {
-    private readonly C _dbContext;
-    private readonly ILogger<GenericRepository<T,C>> _logger;
+    protected readonly C _dbContext;
+    protected readonly ILogger<GenericRepository<T,C>> _logger;
 
     public GenericRepository(C dbContext, ILogger<GenericRepository<T,C>> logger)
     {

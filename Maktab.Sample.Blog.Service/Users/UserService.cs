@@ -16,6 +16,6 @@ public class UserService : IUserService
     public async Task<List<GetUserResult>> GetUsersList()
     {
         var users = await _repository.QueryAsync(u => true);
-        return users.Select(u => u.MapToGetUserResult()).ToList();
+        return users.Select(u => u.MapToUserArgs()).ToList();
     }
 }

@@ -3,18 +3,18 @@ using Maktab.Sample.Blog.Domain.Users;
 
 namespace Maktab.Sample.Blog.Service.Users.Contracts.Result;
 
-public class GetUserResult : GeneralResult
+public class UserArgs : GeneralResult
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime CreatedAt { get; set; }
 }
 
-public static class GetUserResultMapper
+public static class UserArgsMapper
 {
-    public static GetUserResult MapToGetUserResult(this User user)
+    public static UserArgs MapToUserArgs(this User user)
     {
-        return new GetUserResult
+        return new UserArgs
         {
             Id = user.Id,
             FirstName = user.FirstName,

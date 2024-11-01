@@ -1,6 +1,4 @@
 using Maktab.Sample.Blog.Domain.Posts;
-using Maktab.Sample.Blog.Domain.Users;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Maktab.Sample.Blog.Persistence.Posts;

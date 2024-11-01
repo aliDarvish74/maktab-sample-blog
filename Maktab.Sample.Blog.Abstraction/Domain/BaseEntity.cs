@@ -10,7 +10,7 @@ public abstract class BaseEntity
 
     protected abstract void Validate();
 
-    public void SoftDeleteEntity()
+    public virtual void SoftDeleteEntity()
     {
         IsDeleted = true;
         DeletedAt = DateTime.Now;
