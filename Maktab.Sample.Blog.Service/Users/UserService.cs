@@ -13,7 +13,7 @@ public class UserService : IUserService
         _repository = repository;
     }
 
-    public async Task<List<GetUserResult>> GetUsersList()
+    public async Task<List<UserArgs>> GetUsersList()
     {
         var users = await _repository.QueryAsync(u => true);
         return users.Select(u => u.MapToUserArgs()).ToList();
