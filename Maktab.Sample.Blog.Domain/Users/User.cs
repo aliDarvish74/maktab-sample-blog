@@ -1,21 +1,19 @@
-using Maktab.Sample.Blog.Abstraction.Domain;
 using Maktab.Sample.Blog.Domain.Comments;
 using Maktab.Sample.Blog.Domain.Likes;
 using Maktab.Sample.Blog.Domain.Posts;
+using Microsoft.AspNetCore.Identity;
 
 namespace Maktab.Sample.Blog.Domain.Users;
 
-public class User : BaseEntity
+public class User : IdentityUser<Guid>
 {
     private User()
     {
-        
     }
     public User(string firstName, string lastName)
     {
         FirstName = firstName;
         LastName = lastName;
-        Validate();
     }
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -23,12 +21,9 @@ public class User : BaseEntity
     public List<Post> Posts { get; set; } = new();
     public List<Comment> Comments { get; set; } = new();
     public List<Like> Likes { get; set; } = new();
-    protected override void Validate()
-    {
-        if (string.IsNullOrWhiteSpace(FirstName))
-            throw new EmptyFirstNameException();
 
-        if (string.IsNullOrWhiteSpace(LastName))
-            throw new EmptyLastNameException();
-    }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? ModifiedAt { get; set; }
+    public bool IsDeleted { get; set; }
+    public DateTime? DeletedAt { get; set; }
 }

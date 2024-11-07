@@ -1,17 +1,18 @@
-using System.Reflection;
 using Maktab.Sample.Blog.Domain.Comments;
 using Maktab.Sample.Blog.Domain.Likes;
 using Maktab.Sample.Blog.Domain.Posts;
+using Maktab.Sample.Blog.Domain.Roles;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Persistence.Comments;
 using Maktab.Sample.Blog.Persistence.Likes;
 using Maktab.Sample.Blog.Persistence.Posts;
 using Maktab.Sample.Blog.Persistence.Users;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Maktab.Sample.Blog.Persistence;
 
-public class BlogDbContext : DbContext
+public class BlogDbContext : IdentityDbContext<User, Role, Guid>
 {
     public BlogDbContext()
     {
@@ -21,8 +22,6 @@ public class BlogDbContext : DbContext
     {
         
     }
-
-    public DbSet<User> Users { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<Like> Likes { get; set; }
     public DbSet<Comment> Comments { get; set; }

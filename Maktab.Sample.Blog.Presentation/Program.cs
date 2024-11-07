@@ -1,27 +1,39 @@
 using Maktab.Sample.Blog.Domain.Posts;
+using Maktab.Sample.Blog.Domain.Roles;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Persistence;
 using Maktab.Sample.Blog.Persistence.Posts;
 using Maktab.Sample.Blog.Persistence.Users;
+using Maktab.Sample.Blog.Service;
+using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Posts;
 using Maktab.Sample.Blog.Service.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-const string connectionString = "server=localhost; port=3006; database=MaktabBlogDb; user=root; password=root; Persist Security Info=False; Connect Timeout=300";
+string blogDbConnectionString = builder.Configuration.GetConnectionString("BlogDbConnectionString");
+
+var grants = builder.Configuration.GetSection("InternalGrants");
+builder.Services.Configure<InternalGrantsSettings>(grants);
+builder.Services.AddSingleton(grants.Get<InternalGrantsSettings>()?? new InternalGrantsSettings());
 builder.Services.AddDbContext<BlogDbContext>(
     optionsBuilder =>
     {
-        optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+        optionsBuilder.UseMySql(blogDbConnectionString, ServerVersion.AutoDetect(blogDbConnectionString));
     });
 
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IPostRepository, PostRepository>();
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IPostService, PostService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPostService, PostService>();
+
+builder.Services.AddIdentity<User, Role>()
+    .AddEntityFrameworkStores<BlogDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 
 var app = builder.Build();
 

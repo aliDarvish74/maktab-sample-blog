@@ -5,24 +5,30 @@ using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Maktab.Sample.Blog.Service.Configurations;
+using Microsoft.Extensions.Options;
 
 namespace Maktab.Sample.Blog.Service.Posts;
 
 public class PostService : IPostService
 {
     private readonly IPostRepository _repository;
+    private readonly InternalGrantsSettings _grants;
+    private readonly InternalGrantsSettings _grantsSettings;
 
-    public PostService(IPostRepository repository)
+    public PostService(IPostRepository repository,InternalGrantsSettings grants, IOptions<InternalGrantsSettings> settings)
     {
         _repository = repository;
+        _grants = grants;
+        _grantsSettings = settings.Value;
     }
 
     public async Task<GeneralResult> AddPostAsync(AddPostCommand command)
     {
         var post = new Post(command.Title, command.PostText, command.AuthorId);
-
+        var x = _grants.Grants;
         await _repository.AddAsync(post);
-
+        var currentServiceGrants = _grantsSettings.Grants.FirstOrDefault(g => g.ServiceName == "Bahmani");
         return new GeneralResult
         {
             Id = post.Id

@@ -1,21 +1,23 @@
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Service.Users.Contracts.Result;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Maktab.Sample.Blog.Service.Users;
 
 public class UserService : IUserService
 {
-    private readonly IUserRepository _repository;
+    private readonly UserManager<User> _userManager;
 
-    public UserService(IUserRepository repository)
+    public UserService(UserManager<User> userManager)
     {
-        _repository = repository;
+        _userManager = userManager;
     }
 
     public async Task<List<UserArgs>> GetUsersList()
     {
-        var users = await _repository.QueryAsync(u => true);
+        var users = await _userManager.Users.ToListAsync();
         return users.Select(u => u.MapToUserArgs()).ToList();
     }
 }

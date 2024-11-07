@@ -15,6 +15,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.20" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Reference Include="Microsoft.EntityFrameworkCore">
         <HintPath>..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\7.0.20\lib\net6.0\Microsoft.EntityFrameworkCore.dll</HintPath>
       </Reference>
