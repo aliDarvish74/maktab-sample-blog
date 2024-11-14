@@ -3,8 +3,7 @@ using Maktab.Sample.Blog.Domain.Roles;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Persistence;
 using Maktab.Sample.Blog.Persistence.Posts;
-using Maktab.Sample.Blog.Persistence.Users;
-using Maktab.Sample.Blog.Service;
+using Maktab.Sample.Blog.Presentation.MapsterConfiguration;
 using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Posts;
 using Maktab.Sample.Blog.Service.Users;
@@ -25,6 +24,8 @@ builder.Services.AddDbContext<BlogDbContext>(
     {
         optionsBuilder.UseMySql(blogDbConnectionString, ServerVersion.AutoDetect(blogDbConnectionString));
     });
+
+MapsterConfig.RegisterMapping();
 
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

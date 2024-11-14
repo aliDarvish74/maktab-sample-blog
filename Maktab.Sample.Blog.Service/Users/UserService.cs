@@ -1,23 +1,31 @@
-using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Users;
-using Maktab.Sample.Blog.Service.Users.Contracts.Result;
+using Maktab.Sample.Blog.Service.Users.Contracts.Commands;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Maktab.Sample.Blog.Service.Users;
 
 public class UserService : IUserService
 {
     private readonly UserManager<User> _userManager;
+    private readonly SignInManager<User> _signInManager;
 
-    public UserService(UserManager<User> userManager)
+    public UserService(UserManager<User> userManager, SignInManager<User> signInManager)
     {
         _userManager = userManager;
+        _signInManager = signInManager;
     }
 
-    public async Task<List<UserArgs>> GetUsersList()
+    public async Task<bool> LoginAsync(LoginCommand command)
     {
-        var users = await _userManager.Users.ToListAsync();
-        return users.Select(u => u.MapToUserArgs()).ToList();
+        var result = false;
+        var user = await _userManager.FindByNameAsync(command.Username);
+        
+        if (user != null)
+        {
+            var signInResult = await _signInManager.PasswordSignInAsync(user, command.Password, false, false);
+            result = signInResult.Succeeded;
+        }
+        
+        return result;
     }
 }

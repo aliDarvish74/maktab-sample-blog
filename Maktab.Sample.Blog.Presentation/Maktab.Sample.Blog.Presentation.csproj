@@ -19,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Mapster" Version="7.4.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.20" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.20" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.20" />
@@ -34,6 +35,21 @@
       <ProjectReference Include="..\Maktab.Sample.Blog.Domain\Maktab.Sample.Blog.Domain.csproj" />
       <ProjectReference Include="..\Maktab.Sample.Blog.Persistence\Maktab.Sample.Blog.Persistence.csproj" />
       <ProjectReference Include="..\Maktab.Sample.Blog.Service\Maktab.Sample.Blog.Service.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\PresentationResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>PresentationResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\PresentationResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>PresentationResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
