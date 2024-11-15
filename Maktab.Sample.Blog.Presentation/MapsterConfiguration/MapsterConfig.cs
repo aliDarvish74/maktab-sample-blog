@@ -9,5 +9,7 @@ public static class MapsterConfig
     public static void RegisterMapping()
     {
         TypeAdapterConfig<LoginViewModel, LoginCommand>.NewConfig();
+        
+        TypeAdapterConfig<RegisterViewModel, RegisterCommand>.NewConfig();
     }
 }

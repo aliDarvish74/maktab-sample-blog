@@ -1,26 +1,22 @@
-@using Maktab.Sample.Blog.Presentation.Models.Accounting
 @model LoginViewModel
 
-@{
-    Layout = null;
-}
-
-<form>
+<form asp-action="LoginPost">
     <div class="mb-3">
-        <label asp-for="Username" class="form-label"></label>
-        <input asp-for="Username" class="form-control" id="UsernameInput" aria-describedby="emailHelp">
-        <span asp-validation-for="Username" class="text-danger"></span>
+        <label asp-for="UserName" class="form-label"></label>
+        <input asp-for="UserName" class="form-control" id="UsernameInput" aria-describedby="emailHelp">
+        <span asp-validation-for="UserName" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Password" class="form-label"></label>
         <input asp-for="Password" class="form-control" id="PasswordInput">
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-success">SignIn</button>
     
-    @if (!string.IsNullOrWhiteSpace(ViewData["Message"].ToString()))
+    @if (!string.IsNullOrWhiteSpace(ViewData["Message"]?.ToString()))
     {
         <div class="alert alert-danger" role="alert">@ViewData["Message"]</div>
     }
     
 </form>
+<a type="button" asp-action="Register" class="btn btn-primary mt-2">Register Now!</a>

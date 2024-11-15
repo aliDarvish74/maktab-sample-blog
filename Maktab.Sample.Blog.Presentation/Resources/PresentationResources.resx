@@ -22,13 +22,13 @@
         <value>First name</value>
     </data>
     <data name="MinLengthStringValidationMessage" xml:space="preserve">
-        <value>Minimum Length of [0] is 3.</value>
+        <value>Minimum Length of {0} is {1}.</value>
     </data>
     <data name="RequiredValidationMessage" xml:space="preserve">
-        <value>[0] is required.</value>
+        <value>{0} is required.</value>
     </data>
     <data name="MaxLengthStringValidationMessage" xml:space="preserve">
-        <value>Maximum length of [0] is 30.</value>
+        <value>Maximum length of {0} is {1}.</value>
     </data>
     <data name="LastNameProp" xml:space="preserve">
         <value>Last name</value>
@@ -59,5 +59,8 @@
     </data>
     <data name="InvalidPhoneNumber" xml:space="preserve">
         <value>Entered phone number is invalid.</value>
+    </data>
+    <data name="StringLengthValidationMessage" xml:space="preserve">
+        <value>{0}'s length should be between {1}, {2}.</value>
     </data>
 </root>

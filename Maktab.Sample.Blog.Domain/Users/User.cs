@@ -22,7 +22,7 @@ public class User : IdentityUser<Guid>
     public List<Comment> Comments { get; set; } = new();
     public List<Like> Likes { get; set; } = new();
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime? ModifiedAt { get; set; }
     public bool IsDeleted { get; set; }
     public DateTime? DeletedAt { get; set; }

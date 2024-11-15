@@ -7,7 +7,7 @@ public class LoginViewModel
 {
     [Display(Name = "UsernameProp", ResourceType = typeof(PresentationResources))]
     [Required(ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "RequiredValidationMessage")]
-    public string Username { get; set; }
+    public string UserName { get; set; }
     
     [Display(Name = "PasswordProp", ResourceType = typeof(PresentationResources))]
     [Required(ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "RequiredValidationMessage")]

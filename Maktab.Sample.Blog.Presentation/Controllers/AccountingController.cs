@@ -28,10 +28,8 @@ public class AccountingController : Controller
             var result = await _userService.LoginAsync(model.Adapt<LoginCommand>());
             if(result)
                 return RedirectToAction("Index", "Home");
-            else
-            {
-                ViewData["Message"] = "Login Failed";
-            }
+                
+            ViewData["Message"] = "Login Failed";
         }
         return View("Login");
     }
@@ -40,5 +38,25 @@ public class AccountingController : Controller
     public IActionResult Register()
     {
         return View();
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> RegisterPostAsync(RegisterViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var result = await _userService.RegisterAsync(model.Adapt<RegisterCommand>());
+                return LocalRedirect("/Home/index");
+            }
+            catch (Exception e)
+            {
+                ViewData["Message"] = e.Message;
+            }
+            
+        }
+
+        return View("Register");
     }
 }

@@ -13,8 +13,7 @@ public class RegisterViewModel
     
     [Display(Name = "LastNameProp",ResourceType = typeof(PresentationResources))]
     [Required(ErrorMessageResourceName = "RequiredValidationMessage", ErrorMessageResourceType = typeof(PresentationResources))]
-    [MinLength(3, ErrorMessageResourceName = "MinLengthStringValidationMessage", ErrorMessageResourceType = typeof(PresentationResources))]
-    [MaxLength(30, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MaxLengthStringValidationMessage")]
+    [StringLength(30, ErrorMessageResourceName = "StringLengthValidationMessage", ErrorMessageResourceType = typeof(PresentationResources), MinimumLength = 3)]
     public string LastName { get; set; }
     
     [Display(Name = "EmailProp",ResourceType = typeof(PresentationResources))]
@@ -26,18 +25,20 @@ public class RegisterViewModel
     [Required(ErrorMessageResourceName = "RequiredValidationMessage", ErrorMessageResourceType = typeof(PresentationResources))]
     [MinLength(3, ErrorMessageResourceName = "MinLengthStringValidationMessage", ErrorMessageResourceType = typeof(PresentationResources))]
     [MaxLength(30, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MaxLengthStringValidationMessage")]
-    public string Username { get; set; }
+    public string UserName { get; set; }
     
     [Display(Name = "PasswordProp" ,ResourceType = typeof(PresentationResources))]
     [Required(ErrorMessageResourceName = "RequiredValidationMessage", ErrorMessageResourceType = typeof(PresentationResources))]
     [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$",
         ErrorMessageResourceType = typeof(PresentationResources),
         ErrorMessageResourceName = "InvalidPassword")]
+    [DataType(DataType.Password)]
     public string Password { get; set; }
     
     [Display(Name = "RePasswordProp" ,ResourceType = typeof(PresentationResources))]
     [Required(ErrorMessageResourceName = "RequiredValidationMessage", ErrorMessageResourceType = typeof(PresentationResources))]
     [Compare("Password", ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "InvalidRePassword")]
+    [DataType(DataType.Password)]
     public string RePassword { get; set; }
     
     [Display(Name = "PhoneNumberProp" ,ResourceType = typeof(PresentationResources))]

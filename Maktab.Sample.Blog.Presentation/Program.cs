@@ -31,12 +31,30 @@ builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
 
-builder.Services.AddIdentity<User, Role>()
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    opt.LoginPath = "/Accounting/Login";
+});
+builder.Services.AddIdentity<User, Role>(opt =>
+    {
+        opt.Password.RequireDigit = true;
+        opt.Password.RequireNonAlphanumeric = false; // $#%&^*
+        opt.Password.RequiredLength = 8;
+        opt.Password.RequireUppercase = false;
+        opt.Password.RequireLowercase = false;
+    })
     .AddEntityFrameworkStores<BlogDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
+    if(db.Database.GetMigrations().Any())
+        await db.Database.MigrateAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

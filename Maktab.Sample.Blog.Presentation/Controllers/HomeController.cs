@@ -18,13 +18,6 @@ public class HomeController : Controller
     }
     public IActionResult Index()
     {
-        var command = new AddPostCommand
-        {
-            Title = "Test title",
-            PostText = "TestText",
-            AuthorId = Guid.NewGuid()
-        };
-        _postService.AddPostAsync(command);
         return View();
     }
 

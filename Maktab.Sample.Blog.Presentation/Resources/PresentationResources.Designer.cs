@@ -128,5 +128,11 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
                 return ResourceManager.GetString("InvalidPhoneNumber", resourceCulture);
             }
         }
+        
+        public static string StringLengthValidationMessage {
+            get {
+                return ResourceManager.GetString("StringLengthValidationMessage", resourceCulture);
+            }
+        }
     }
 }
