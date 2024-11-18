@@ -10,6 +10,7 @@ using Maktab.Sample.Blog.Persistence.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Maktab.Sample.Blog.Persistence;
 
 public class BlogDbContext : IdentityDbContext<User, Role, Guid>

@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{FDFC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maktab.Sample.Blog.Service", "Maktab.Sample.Blog.Service\Maktab.Sample.Blog.Service.csproj", "{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF_SQLServer_Persitance", "EF_SQLServer_Persitance\EF_SQLServer_Persitance.csproj", "{23A7AFE2-260F-4361-AED9-98BCD81AF25D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A03E959-63A5-4588-9D3E-BC11FDFE76AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23A7AFE2-260F-4361-AED9-98BCD81AF25D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23A7AFE2-260F-4361-AED9-98BCD81AF25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23A7AFE2-260F-4361-AED9-98BCD81AF25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23A7AFE2-260F-4361-AED9-98BCD81AF25D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,4 +9,6 @@ public interface IUserService
     Task<bool> RegisterAsync(RegisterCommand command);
     Task LogoutAsync(string username);
     Task<UserArgs> GetByUserNameAsync(string userName);
+    Task<UserResult> GetFullByUserNameAsync(string userName);
+    Task<bool> UpdateAsync(UserCommand command,string userName);
 }

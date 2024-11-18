@@ -1,3 +1,4 @@
+using EF_SQLServer_Persitance;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Roles;
 using Maktab.Sample.Blog.Domain.Users;
@@ -20,15 +21,12 @@ string blogDbConnectionString = builder.Configuration.GetConnectionString("BlogD
 var grants = builder.Configuration.GetSection("InternalGrants");
 builder.Services.Configure<InternalGrantsSettings>(grants);
 builder.Services.AddSingleton(grants.Get<InternalGrantsSettings>()?? new InternalGrantsSettings());
-builder.Services.AddDbContext<BlogDbContext>(
-    optionsBuilder =>
-    {
-        optionsBuilder.UseMySql(blogDbConnectionString, ServerVersion.AutoDetect(blogDbConnectionString));
-    });
+
+//builder.Services.AddMySQLPersistance(builder.Configuration.GetConnectionString("BlogDbConnectionString"));
+builder.Services.AddSQLServerPersistance(builder.Configuration.GetConnectionString("SQLServer"));
 
 MapsterConfig.RegisterMapping();
 
-builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
 
@@ -39,8 +37,7 @@ builder.Services.AddIdentity<User, Role>(options =>
         options.Password.RequiredLength = 8;
         options.Password.RequireUppercase = false;
         options.Password.RequireLowercase = false;
-    })
-    .AddEntityFrameworkStores<BlogDbContext>()
+    }).AddEntityFrameworkStores<SqlServerDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddRazorPages();
@@ -56,8 +53,9 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
-    if(db.Database.GetMigrations().Any())
+    //var db = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<SqlServerDbContext>();
+    if (db.Database.GetMigrations().Any())
         await db.Database.MigrateAsync();
 }
 

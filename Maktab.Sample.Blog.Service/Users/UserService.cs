@@ -62,4 +62,21 @@ public class UserService : IUserService
         var res =  UserArgsMapper.MapToUserArgs(user);
         return res;
     }
+
+    public async Task<UserResult> GetFullByUserNameAsync(string userName)
+    {
+        var user = await _userManager.FindByNameAsync(userName);
+        var res = UserResultMapper.MapToUserResult(user);
+        return res;
+    }
+
+    public async Task<bool> UpdateAsync(UserCommand command,string userNmae)
+    {
+        var user = await _userManager.FindByNameAsync(userNmae);
+        user.Email = command.Email;
+        user.FirstName = command.FirstName;
+        user.LastName = command.LastName;
+        user.PhoneNumber = command.PhoneNumber;
+        return (await _userManager.UpdateAsync(user)).Succeeded;
+    }
 }

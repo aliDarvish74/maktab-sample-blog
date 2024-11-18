@@ -1,7 +1,7 @@
 ﻿@model EditProfileModel
 
 
-<form asp-action="EditProfilePost">
+<form method="post" asp-action="EditProfilePost">
     <div class="mb-3">
         <label asp-for="FirstName" class="form-label"></label>
         <input asp-for="FirstName" class="form-control" id="FirstNameInput">
@@ -22,4 +22,5 @@
         <input asp-for="PhoneNumber" class="form-control" id="PhoneNumberInput">
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
+    <button type="submit" class="btn btn-success">submit</button>
 </form>

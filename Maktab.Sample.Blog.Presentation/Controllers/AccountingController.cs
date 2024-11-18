@@ -3,6 +3,7 @@ using Maktab.Sample.Blog.Presentation.Models.Accounting;
 using Maktab.Sample.Blog.Service.Users;
 using Maktab.Sample.Blog.Service.Users.Contracts.Commands;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Maktab.Sample.Blog.Presentation.Controllers;
@@ -85,15 +86,38 @@ public class AccountingController : Controller
         }
         return LocalRedirect("/Home/Index");
     }
-
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<EditProfileModel>> EditProfile()
     {
-        var user = _userService.GetByUserNameAsync(User.Identity?.Name??"");
+        var user = await _userService.GetFullByUserNameAsync(User.Identity?.Name??"");
         var res = new EditProfileModel();
         if (user != null) { 
             res = user.Adapt<EditProfileModel>();
         }
         return View(res);
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> EditProfilePost(EditProfileModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var command = model.Adapt<UserCommand>();
+            try
+            {
+                var res = await _userService.UpdateAsync(command, User.Identity?.Name ?? "");
+                if (res)
+                    return RedirectToAction("Index", "Home");
+                ViewData["ErrorMessage"] = "invalid inputs";
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
+        }
+     
+        return View("EditProfile", model);
     }
 }
