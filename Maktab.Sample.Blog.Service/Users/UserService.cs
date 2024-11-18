@@ -2,6 +2,7 @@ using Maktab.Sample.Blog.Abstraction.Service.Exceptions;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Service.Exceptions;
 using Maktab.Sample.Blog.Service.Users.Contracts.Commands;
+using Maktab.Sample.Blog.Service.Users.Contracts.Result;
 using Maktab.Sample.Blog.Service.Users.Extensions;
 using Microsoft.AspNetCore.Identity;
 
@@ -54,5 +55,11 @@ public class UserService : IUserService
             throw new ItemNotFoundException(nameof(User));
         
         await _signInManager.SignOutAsync();
+    }
+    public async Task<UserArgs> GetByUserNameAsync(string userName)
+    {
+        var user = await _userManager.FindByNameAsync(userName);
+        var res =  UserArgsMapper.MapToUserArgs(user);
+        return res;
     }
 }

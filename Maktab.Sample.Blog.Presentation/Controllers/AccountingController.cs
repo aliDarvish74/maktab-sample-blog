@@ -1,3 +1,4 @@
+
 using Maktab.Sample.Blog.Presentation.Models.Accounting;
 using Maktab.Sample.Blog.Service.Users;
 using Maktab.Sample.Blog.Service.Users.Contracts.Commands;
@@ -83,5 +84,16 @@ public class AccountingController : Controller
             }
         }
         return LocalRedirect("/Home/Index");
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<EditProfileModel>> EditProfile()
+    {
+        var user = _userService.GetByUserNameAsync(User.Identity?.Name??"");
+        var res = new EditProfileModel();
+        if (user != null) { 
+            res = user.Adapt<EditProfileModel>();
+        }
+        return View(res);
     }
 }
