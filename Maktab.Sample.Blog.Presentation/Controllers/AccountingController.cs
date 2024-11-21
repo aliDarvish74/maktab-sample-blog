@@ -27,7 +27,7 @@ public class AccountingController : Controller
         {
             var result = await _userService.LoginAsync(model.Adapt<LoginCommand>());
             if(result)
-                return RedirectToAction("Index", "Home");
+                return LocalRedirect("/Home/Index");
                 
             ViewData["Message"] = "Login Failed";
         }
@@ -56,7 +56,6 @@ public class AccountingController : Controller
             }
             
         }
-
         return View("Register");
     }
 }

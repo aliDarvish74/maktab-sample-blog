@@ -20,18 +20,7 @@
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    @if (!User.Identity?.IsAuthenticated ?? true)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Accounting" asp-action="Login">SignIn</a>
-                        </li>    
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <strong>Welcome @User.Identity.Name</strong>
-                        </li>
-                    }
+                    
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
@@ -45,6 +34,15 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="UsersList">Users</a>
                     </li>
                 </ul>
+                @if (!User.Identity?.IsAuthenticated ?? true)
+                {
+                    <a class="btn btn-outline-success" asp-area="" asp-controller="Accounting" asp-action="Login">Login</a>
+                }
+                else
+                {
+                    <strong class="d-inline-block mt-1 me-1">Welcome @User.Identity.Name</strong>
+                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Accounting" asp-action="Logout">Logout</a>
+                }
             </div>
         </div>
     </nav>
