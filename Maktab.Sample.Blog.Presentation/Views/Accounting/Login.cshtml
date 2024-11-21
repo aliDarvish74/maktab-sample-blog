@@ -12,11 +12,5 @@
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-success">SignIn</button>
-    
-    @if (!string.IsNullOrWhiteSpace(ViewData["Message"]?.ToString()))
-    {
-        <div class="alert alert-danger" role="alert">@ViewData["Message"]</div>
-    }
-    
 </form>
 <a type="button" asp-action="Register" class="btn btn-primary mt-2">Register Now!</a>

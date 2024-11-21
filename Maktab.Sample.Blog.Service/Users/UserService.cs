@@ -1,3 +1,4 @@
+using Maktab.Sample.Blog.Abstraction.Service.Exceptions;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Service.Exceptions;
 using Maktab.Sample.Blog.Service.Users.Contracts.Commands;
@@ -44,5 +45,14 @@ public class UserService : IUserService
             throw new RegistrationFailedException(registerResult.Errors.FirstOrDefault()?.Description ?? "Registration failed");
         
         return registerResult.Succeeded;
+    }
+
+    public async Task LogoutAsync(string username)
+    {
+        var user = await _userManager.FindByNameAsync(username);
+        if(user == null)
+            throw new ItemNotFoundException(nameof(User));
+        
+        await _signInManager.SignOutAsync();
     }
 }

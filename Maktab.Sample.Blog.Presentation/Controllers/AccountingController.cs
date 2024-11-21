@@ -9,10 +9,12 @@ namespace Maktab.Sample.Blog.Presentation.Controllers;
 public class AccountingController : Controller
 {
     private readonly IUserService _userService;
+    private readonly ILogger<AccountingController> _logger;
 
-    public AccountingController(IUserService userService)
+    public AccountingController(IUserService userService, ILogger<AccountingController> logger)
     {
         _userService = userService;
+        _logger = logger;
     }
     [HttpGet]
     public IActionResult Login()
@@ -26,10 +28,13 @@ public class AccountingController : Controller
         if (ModelState.IsValid)
         {
             var result = await _userService.LoginAsync(model.Adapt<LoginCommand>());
-            if(result)
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Logged in Successfully";
                 return LocalRedirect("/Home/Index");
+            }
                 
-            ViewData["Message"] = "Login Failed";
+            ViewData["ErrorMessage"] = "Login Failed";
         }
         return View("Login");
     }
@@ -48,14 +53,35 @@ public class AccountingController : Controller
             try
             {
                 var result = await _userService.RegisterAsync(model.Adapt<RegisterCommand>());
+                TempData["SuccessMessage"] = "Registration Successful";
                 return LocalRedirect("/Home/index");
             }
             catch (Exception e)
             {
-                ViewData["Message"] = e.Message;
+                _logger.LogError(e,"Something went wrong in registering new user.");
+                ViewData["ErrorMessage"] = e.Message;
             }
-            
         }
         return View("Register");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Logout()
+    {
+        var username = User.Identity?.Name;
+        if (!string.IsNullOrWhiteSpace(username))
+        {
+            try
+            {
+                await _userService.LogoutAsync(username);
+                TempData["SuccessMessage"] = "Logout Successfully.";
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e,$"Something went wrong when trying to log out user [{username}].");
+                ViewData["ErrorMessage"] = e.Message;
+            }
+        }
+        return LocalRedirect("/Home/Index");
     }
 }
