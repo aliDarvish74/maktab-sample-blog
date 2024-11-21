@@ -40,7 +40,7 @@
                 }
                 else
                 {
-                    <strong class="d-inline-block mt-1 me-1">Welcome @User.Identity.Name</strong>
+                    <strong class="d-inline-block mt-1 me-2">Welcome @User.Identity.Name</strong>
                     <a class="btn btn-outline-danger" asp-area="" asp-controller="Accounting" asp-action="Logout">Logout</a>
                 }
             </div>
@@ -55,9 +55,36 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2024 - Maktab.Sample.Blog.Presentation - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2024 - Maktab Sample Blog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
+@if (!string.IsNullOrWhiteSpace(ViewData["ErrorMessage"]?.ToString()))
+{
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="error-toast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div id="error-toast-body" class="toast-body">
+                    @(ViewData["ErrorMessage"]?.ToString() ?? "Something went wrong.")
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
+@if (!string.IsNullOrWhiteSpace(TempData["SuccessMessage"]?.ToString()))
+{
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="success-toast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div id="error-toast-body" class="toast-body">
+                    @(TempData["SuccessMessage"]?.ToString() ?? "Your request processed successfully.")
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+}
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
