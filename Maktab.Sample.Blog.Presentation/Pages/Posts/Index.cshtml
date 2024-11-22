@@ -1,23 +1,24 @@
 @page
-@model Maktab.Sample.Blog.Presentation.Pages.PostsPage
+@model Maktab.Sample.Blog.Presentation.Pages.Posts.Index
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     Layout = "_Layout";
 }
-<form asp-handler="Create">
+<form method="post" asp-page-handler="Create">
     <div class="mb-3">
-        <label asp-for="PostTitle" class="form-label">Post title</label>
-        <input asp-for="PostTitle" class="form-control" id="postTitleInput">
-        <span asp-validation-for="PostTitle" class="text-danger"></span>
+        <label asp-for="AddPostModel.PostTitle" class="form-label">Post title</label>
+        <input asp-for="AddPostModel.PostTitle" class="form-control" id="postTitleInput">
+        <span asp-validation-for="AddPostModel.PostTitle" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Text" class="form-label">Post text</label>
-        <input asp-for="Text" class="form-control" id="postTextInput">
-        <span asp-validation-for="Text" class="text-danger"></span>
+        <label asp-for="AddPostModel.PostText" class="form-label">Post text</label>
+        <input asp-for="AddPostModel.PostText" class="form-control" id="postTextInput">
+        <span asp-validation-for="AddPostModel.PostText" class="text-danger"></span>
     </div>
-    
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-@foreach (var post in Model.Posts)
+@foreach (var post in Model.PostsModel)
 {
     <div class="card">
         <div class="card-img-top" style="height: 400px; background-image: url('Asset 2@4x.png'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>

@@ -19,7 +19,7 @@ public class HomeController : Controller
     [Authorize]
     public IActionResult Index()
     {
-        return RedirectToPage("/Posts");
+        return RedirectToPage("/Posts/Index");
     }
 
     public IActionResult Privacy()
