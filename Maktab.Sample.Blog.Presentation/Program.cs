@@ -34,6 +34,7 @@ builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.ConfigureApplicationCookie(opt =>
 {
     opt.LoginPath = "/Accounting/Login";
+    opt.AccessDeniedPath = "/Accounting/Login";
 });
 builder.Services.AddIdentity<User, Role>(opt =>
     {
@@ -44,8 +45,7 @@ builder.Services.AddIdentity<User, Role>(opt =>
         opt.Password.RequireLowercase = false;
     })
     .AddEntityFrameworkStores<BlogDbContext>()
-    .AddDefaultTokenProviders()
-    .AddDefaultUI();
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -74,5 +74,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();
