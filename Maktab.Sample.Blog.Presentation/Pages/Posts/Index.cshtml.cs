@@ -1,5 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-using Maktab.Sample.Blog.Presentation.Resources;
+using System.Security.Claims;
+using Maktab.Sample.Blog.Presentation.Pages.Models;
 using Maktab.Sample.Blog.Service.Posts;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
@@ -12,7 +12,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Posts;
 public class Index : PageModel
 {
     public List<PostArgs> PostsModel { get; set; }
-    
+    public Guid PostId { get; set; }
     private readonly IPostService _postService;
 
     public Index(IPostService postService)
@@ -35,21 +35,23 @@ public class Index : PageModel
         };
         
         var result = await _postService.AddPostAsync(postCommand);
-        return RedirectToPage("/PostsModel");
+        return RedirectToPage("/Posts/Index");
     }
-}
-
-public class AddPostModel
-{
-    [Display(Name = "PostTitleProp", ResourceType = typeof(PresentationResources))]
-    [Required(ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "RequiredValidationMessage")]
-    [MinLength(5, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MinLengthStringValidationMessage")]
-    [MaxLength(30, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MaxLengthStringValidationMessage")]
-    public string PostTitle { get; set; }
     
-    [Display(Name = "PostTextProp", ResourceType = typeof(PresentationResources))]
-    [Required(ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "RequiredValidationMessage")]
-    [MinLength(20, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MinLengthStringValidationMessage")]
-    [DataType(DataType.MultilineText)]
-    public string PostText { get; set; }
+    public async Task<IActionResult> OnPostDeleteAsync()
+    {
+        var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+
+        try
+        {
+            await _postService.DeletePostByIdAsync(PostId, userId);
+            TempData["SuccessMessage"] = "Post deleted successfully.";
+        }
+        catch (Exception ex)
+        {
+            ViewData["ErrorMessage"] = ex.Message;
+        }
+        
+        return RedirectToPage("/Posts/Index");
+    }
 }

@@ -18,9 +18,21 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+@{
+    var counter = 1;
+}
 @foreach (var post in Model.PostsModel)
 {
-    <div class="card">
+    <div class="card mt-2 position-relative">
+        <div class="btn-group dropstart position-absolute top-0 end-0">
+            <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-page="EditPost" asp-route-postId="@post.Id" asp-route-maktab="114">Edit Post</a></li>
+                <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@post.Id')" href="#">Delete Post</a></li>
+            </ul>
+        </div>
         <div class="card-img-top" style="height: 400px; background-image: url('Asset 2@4x.png'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
         <div class="card-body">
             <h5 class="card-title">@post.Title</h5>
@@ -31,3 +43,35 @@
         </div>
     </div>
 }
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this post?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" asp-page-handler="Delete">
+                    <div class="mb-3 d-none">
+                        <input name="PostId" class="form-control" id="postIdInput">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Yes, Delete post.</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ShowDeleteModal(postId) {
+        let input = document.getElementById("postIdInput");
+        console.log(input)
+        input.setAttribute("value", postId);
+        let modal = new bootstrap.Modal(document.getElementById("delete-modal"));
+        modal.show();
+    }
+ </script>

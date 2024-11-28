@@ -37,7 +37,7 @@ public class GenericRepository<T,C> : IGenericRepository<T> where T : BaseEntity
         query = AsNoTracking ? query.AsNoTracking() : query;
         query = include == null ? query : include(query);
 
-        return await query.Where(predicate).ToListAsync();
+        return await query.Where(predicate).OrderByDescending(x => x.CreatedAt).ToListAsync();
     }
 
     public async Task UpdateAsync(T entity)

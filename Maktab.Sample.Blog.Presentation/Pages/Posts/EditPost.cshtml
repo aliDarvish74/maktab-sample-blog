@@ -1,0 +1,25 @@
+@page
+@model Maktab.Sample.Blog.Presentation.Pages.Posts.EditPost
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="post" asp-page-handler="Update">
+    <div class="mb-3">
+        <label asp-for="UpdatePostModel.PostTitle" class="form-label">Post title</label>
+        <input asp-for="UpdatePostModel.PostTitle" class="form-control" id="postTitleInput">
+        <span asp-validation-for="UpdatePostModel.PostTitle" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UpdatePostModel.PostText" class="form-label">Post text</label>
+        <input asp-for="UpdatePostModel.PostText" class="form-control" id="postTextInput">
+        <span asp-validation-for="UpdatePostModel.PostText" class="text-danger"></span>
+    </div>
+    <div class="mb-3 d-none">
+        <input asp-for="UpdatePostModel.Id" class="form-control" id="postIdInput">
+    </div>
+    <button type="submit" class="btn btn-outline-info">Update</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Cancel</a>
+</form>

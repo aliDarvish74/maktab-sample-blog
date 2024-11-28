@@ -45,12 +45,13 @@ builder.Services.AddIdentity<User, Role>(options =>
 
 builder.Services.AddRazorPages();
 
-builder.Services.AddAuthentication( CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
+builder.Services.ConfigureApplicationCookie(opt =>
 {
     opt.LoginPath = "/Accounting/Login";
     opt.LogoutPath = "/Accounting/Logout";
     opt.AccessDeniedPath = "/Accounting/Login";
 });
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

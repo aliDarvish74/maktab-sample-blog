@@ -41,6 +41,22 @@ public class PostService : IPostService
         };
     }
 
+    public async Task DeletePostByIdAsync(Guid id, Guid userId)
+    {
+        if (id == Guid.Empty)
+            throw new InvalidOperationException("Id is not valid.");
+
+        var post = await _repository.GetAsync(id);
+
+        if (post == null)
+            throw new ItemNotFoundException(nameof(Post));
+
+        if (post.AuthorId != userId)
+            throw new PermissionDeniedException();
+
+        await _repository.SoftDeleteAsync(id);
+    }
+
     public async Task<List<PostArgs>> GetAllPostsAsync(Expression<Func<Post,bool>> predicate = null)
     {
         var posts = await _repository.QueryAsync(predicate ?? ( p => true), include: p => p.Include(x => x.Author)
@@ -62,14 +78,17 @@ public class PostService : IPostService
         return post.MapToPostArgs();
     }
 
-    public async Task UpdatePostAsync(UpdatePostCommand command, Guid userId)
+    public async Task UpdatePostAsync(UpdatePostCommand command, string userName)
     {
         var post = await _repository.GetAsync(command.Id, false);
+        var user = await _userManager.FindByNameAsync(userName);
+        if (user == null)
+            throw new ItemNotFoundException(nameof(User));
         
         if(post == null)
             throw new ItemNotFoundException(nameof(Post));
 
-        if(post.AuthorId != userId)
+        if(post.AuthorId != user.Id)
             throw new PermissionDeniedException();
 
         post.SetPostInfo(command.Title, command.PostText);

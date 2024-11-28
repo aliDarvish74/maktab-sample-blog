@@ -21,6 +21,7 @@ public static class PostArgsMapper
     {
         return new PostArgs
         {
+            Id = post.Id,
             Title = post.Title,
             Text = post.PostText,
             Author = post.Author?.MapToUserArgs(),

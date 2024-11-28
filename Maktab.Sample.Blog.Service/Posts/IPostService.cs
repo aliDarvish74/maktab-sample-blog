@@ -9,7 +9,8 @@ namespace Maktab.Sample.Blog.Service.Posts;
 public interface IPostService
 {
     Task<GeneralResult> AddPostAsync(AddPostCommand command);
-    Task UpdatePostAsync(UpdatePostCommand command, Guid userId);
+    Task UpdatePostAsync(UpdatePostCommand command, string userName);
     Task<PostArgs> GetPostByIdAsync(Guid id);
+    Task DeletePostByIdAsync(Guid id, Guid userId);
     Task<List<PostArgs>> GetAllPostsAsync(Expression<Func<Post, bool>> predicate);
 }
