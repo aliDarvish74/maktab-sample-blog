@@ -134,5 +134,17 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
                 return ResourceManager.GetString("StringLengthValidationMessage", resourceCulture);
             }
         }
+        
+        public static string PostTitleProp {
+            get {
+                return ResourceManager.GetString("PostTitleProp", resourceCulture);
+            }
+        }
+        
+        public static string PostTextProp {
+            get {
+                return ResourceManager.GetString("PostTextProp", resourceCulture);
+            }
+        }
     }
 }

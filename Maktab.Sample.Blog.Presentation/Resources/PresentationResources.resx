@@ -63,4 +63,10 @@
     <data name="StringLengthValidationMessage" xml:space="preserve">
         <value>{0}'s length should be between {1}, {2}.</value>
     </data>
+    <data name="PostTitleProp" xml:space="preserve">
+        <value>Post title</value>
+    </data>
+    <data name="PostTextProp" xml:space="preserve">
+        <value>Post text</value>
+    </data>
 </root>

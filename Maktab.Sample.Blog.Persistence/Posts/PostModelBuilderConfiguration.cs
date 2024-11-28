@@ -8,7 +8,7 @@ public static class CommentModelBuilderConfiguration
     public static void ConfigurePostModelBuilder(this ModelBuilder builder)
     {
         builder.Entity<Post>().HasKey(p => p.Id);
-
+        builder.Entity<Post>().HasQueryFilter(x => !x.IsDeleted);
         builder.Entity<Post>()
             .HasOne(p => p.Author)
             .WithMany(u => u.Posts)

@@ -10,5 +10,5 @@ public class AddPostCommand
 {
     public string Title { get; set; }
     public string PostText { get; set; }
-    public Guid AuthorId { get; set; }
+    public string UserName { get; set; }
 }

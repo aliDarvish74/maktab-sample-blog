@@ -7,6 +7,7 @@ using Maktab.Sample.Blog.Presentation.MapsterConfiguration;
 using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Posts;
 using Maktab.Sample.Blog.Service.Users;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,21 +32,25 @@ builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
 
+builder.Services.AddIdentity<User, Role>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequireNonAlphanumeric = false; // $#%&^*
+        options.Password.RequiredLength = 8;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddEntityFrameworkStores<BlogDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddRazorPages();
+
 builder.Services.ConfigureApplicationCookie(opt =>
 {
     opt.LoginPath = "/Accounting/Login";
+    opt.LogoutPath = "/Accounting/Logout";
+    opt.AccessDeniedPath = "/Accounting/Login";
 });
-builder.Services.AddIdentity<User, Role>(opt =>
-    {
-        opt.Password.RequireDigit = true;
-        opt.Password.RequireNonAlphanumeric = false; // $#%&^*
-        opt.Password.RequiredLength = 8;
-        opt.Password.RequireUppercase = false;
-        opt.Password.RequireLowercase = false;
-    })
-    .AddEntityFrameworkStores<BlogDbContext>()
-    .AddDefaultTokenProviders()
-    .AddDefaultUI();
 
 var app = builder.Build();
 
@@ -74,5 +79,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();

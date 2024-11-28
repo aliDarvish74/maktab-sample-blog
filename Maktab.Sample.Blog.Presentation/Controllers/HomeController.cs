@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Maktab.Sample.Blog.Presentation.Models;
 using Maktab.Sample.Blog.Service.Posts;
-using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Maktab.Sample.Blog.Presentation.Controllers;
 
@@ -16,9 +16,10 @@ public class HomeController : Controller
         _postService = postService;
         _logger = logger;
     }
+    [Authorize]
     public IActionResult Index()
     {
-        return View();
+        return RedirectToPage("/Posts/Index");
     }
 
     public IActionResult Privacy()
