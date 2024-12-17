@@ -21,7 +21,7 @@
 @{
     var counter = 1;
 }
-@foreach (var post in Model.PostsModel)
+@foreach (var post in Model.PostsModel.Items)
 {
     <div class="card mt-2 position-relative">
         <div class="btn-group dropstart position-absolute top-0 end-0">
@@ -43,6 +43,25 @@
         </div>
     </div>
 }
+<nav class="w-100 mt-2">
+    <div style="width: fit-content" class="mx-auto">
+        <ul class="pagination">
+            <li class="page-item @(Model.PostsModel.PageNumber == 0 ? "disabled" : "")">
+                <a class="page-link" asp-page="/Posts/Index" asp-route-pageNumber="@(Model.PostsModel.PageNumber - 1)" asp-route-pageSize="3">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.PostsModel.GetTotalPages(); i++)
+            {
+                var isActive = Model.PostsModel.PageNumber + 1 == i;
+                
+                 <li class="page-item @(isActive ? "active" : "")"><a class="page-link" asp-page="/Posts/Index" asp-route-pageNumber="@(i - 1)" asp-route-pageSize="3">@i</a></li>   
+            }
+            <li class="page-item @(Model.PostsModel.PageNumber == (Model.PostsModel.GetTotalPages() - 1) ? "disabled" : "")">
+                <a class="page-link" asp-page="/Posts/Index" asp-route-pageNumber="@(Model.PostsModel.PageNumber + 1)" asp-route-pageSize="3">Next</a>
+            </li>
+        </ul> 
+    </div>
+    
+</nav>
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

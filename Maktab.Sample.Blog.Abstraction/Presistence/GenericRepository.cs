@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Logging;
 
-namespace Maktab.Sample.Blog.Persistence;
+namespace Maktab.Sample.Blog.Abstraction.Presistence;
 
 public class GenericRepository<T,C> : IGenericRepository<T> where T : BaseEntity where C : DbContext
 {
@@ -24,18 +24,14 @@ public class GenericRepository<T,C> : IGenericRepository<T> where T : BaseEntity
 
     public async Task<T?> GetAsync(Guid id, bool AsNoTracking = true, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
     {
-        var query = _dbContext.Set<T>().AsQueryable();
-        query = AsNoTracking ? query.AsNoTracking() : query;
-        query = include == null ? query : include(query);
+        var query = GenerateQuery(AsNoTracking, include);
          
         return await query.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<List<T>> QueryAsync(Expression<Func<T, bool>> predicate, bool AsNoTracking = true, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
     {
-        var query = _dbContext.Set<T>().AsQueryable();
-        query = AsNoTracking ? query.AsNoTracking() : query;
-        query = include == null ? query : include(query);
+        var query = GenerateQuery(AsNoTracking, include);
 
         return await query.Where(predicate).OrderByDescending(x => x.CreatedAt).ToListAsync();
     }
@@ -64,5 +60,14 @@ public class GenericRepository<T,C> : IGenericRepository<T> where T : BaseEntity
             _dbContext.Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
+    }
+
+    protected IQueryable<T> GenerateQuery(bool AsNoTracking = true,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+    {
+        var query = _dbContext.Set<T>().AsQueryable();
+        query = AsNoTracking ? query.AsNoTracking() : query;
+        query = include == null ? query : include(query);
+        return query;
     }
 }

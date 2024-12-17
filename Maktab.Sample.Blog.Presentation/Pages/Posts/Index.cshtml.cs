@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Maktab.Sample.Blog.Abstraction.Presistence;
 using Maktab.Sample.Blog.Presentation.Pages.Models;
 using Maktab.Sample.Blog.Service.Posts;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
@@ -11,7 +12,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Posts;
 [BindProperties]
 public class Index : PageModel
 {
-    public List<PostArgs> PostsModel { get; set; }
+    public GetPostsListResult PostsModel { get; set; }
     public Guid PostId { get; set; }
     private readonly IPostService _postService;
 
@@ -19,9 +20,14 @@ public class Index : PageModel
     {
         _postService = postService;
     }
-    public async Task OnGetAsync()
+    public async Task OnGetAsync([FromQuery]int pageSize = 3, [FromQuery] int pageNumber = 0)
     {
-        PostsModel = await _postService.GetAllPostsAsync(p => true);
+        var paging = new Paging()
+        {
+            PageSize = pageSize,
+            PageNumber = pageNumber,
+        };
+        PostsModel = await _postService.GetPostsListAsync(paging);
     }
     
     public AddPostModel AddPostModel { get; set; }

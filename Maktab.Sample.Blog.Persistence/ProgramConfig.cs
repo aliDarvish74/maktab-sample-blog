@@ -10,18 +10,13 @@ namespace Maktab.Sample.Blog.Persistence
 {
     public static class ProgramConfig
     {
-        public static void AddMySQLPersistance(this IServiceCollection services,string connectionString)
+        public static void AddMySQLPersistance(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<BlogDbContext>(
-    optionsBuilder =>
-    {
-        optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-    });
-
-
+            services.AddDbContext<BlogDbContext>(optionsBuilder =>
+                {
+                    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                });
             services.AddScoped<IPostRepository, PostRepository>();
-        
-
         }
     }
 }

@@ -1,5 +1,6 @@
+using Maktab.Sample.Blog.Abstraction.Presistence;
 using Maktab.Sample.Blog.Domain.Posts;
-using Maktab.Sample.Blog.Persistence;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Logging;
 namespace EF_SQLServer_Persitance;
 
@@ -13,5 +14,10 @@ public class PostRepository : GenericRepository<Post, SqlServerDbContext>, IPost
     public async Task<List<Post>> SearchPostsByTitle(string title)
     {
         return await QueryAsync(p => p.Title.Contains(title));
+    }
+
+    public Task<(List<Post> items, int totalRows)> GetPostsListAsync(Paging paging, bool asNoTracking = true, Func<IQueryable<Post>, IIncludableQueryable<Post, object>> include = null)
+    {
+        throw new NotImplementedException();
     }
 }

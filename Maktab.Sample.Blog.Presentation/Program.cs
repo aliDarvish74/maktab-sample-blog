@@ -22,8 +22,10 @@ var grants = builder.Configuration.GetSection("InternalGrants");
 builder.Services.Configure<InternalGrantsSettings>(grants);
 builder.Services.AddSingleton(grants.Get<InternalGrantsSettings>()?? new InternalGrantsSettings());
 
-//builder.Services.AddMySQLPersistance(builder.Configuration.GetConnectionString("BlogDbConnectionString"));
-builder.Services.AddSQLServerPersistance(builder.Configuration.GetConnectionString("SQLServer"));
+builder.Services.AddMySQLPersistance(blogDbConnectionString
+                                     ?? throw new ArgumentNullException("ConnectionString",
+                                         "Can not find connection string."));
+// builder.Services.AddSQLServerPersistance(builder.Configuration.GetConnectionString("SQLServer"));
 
 MapsterConfig.RegisterMapping();
 
@@ -37,7 +39,7 @@ builder.Services.AddIdentity<User, Role>(options =>
         options.Password.RequiredLength = 8;
         options.Password.RequireUppercase = false;
         options.Password.RequireLowercase = false;
-    }).AddEntityFrameworkStores<SqlServerDbContext>()
+    }).AddEntityFrameworkStores<BlogDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddRazorPages();
@@ -53,8 +55,8 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    //var db = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
-    var db = scope.ServiceProvider.GetRequiredService<SqlServerDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<BlogDbContext>();
+    // var db = scope.ServiceProvider.GetRequiredService<SqlServerDbContext>();
     if (db.Database.GetMigrations().Any())
         await db.Database.MigrateAsync();
 }

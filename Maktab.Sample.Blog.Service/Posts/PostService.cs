@@ -5,6 +5,7 @@ using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Maktab.Sample.Blog.Abstraction.Presistence;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Service.Configurations;
 using Microsoft.AspNetCore.Identity;
@@ -57,12 +58,13 @@ public class PostService : IPostService
         await _repository.SoftDeleteAsync(id);
     }
 
-    public async Task<List<PostArgs>> GetAllPostsAsync(Expression<Func<Post,bool>> predicate = null)
+    public async Task<GetPostsListResult> GetPostsListAsync(Paging paging)
     {
-        var posts = await _repository.QueryAsync(predicate ?? ( p => true), include: p => p.Include(x => x.Author)
+        var result = await _repository.GetPostsListAsync(paging , include: p => p.Include(x => x.Author)
                                                                                            .Include(x => x.Comments)
                                                                                            .Include(x => x.Likes));
-        return posts.Select(p => p.MapToPostArgs()).ToList();
+        var items = result.items.Select(p => p.MapToPostArgs()).ToList();
+        return new GetPostsListResult(items, result.totalRows, paging);
     }
 
     public async Task<PostArgs> GetPostByIdAsync(Guid id)
