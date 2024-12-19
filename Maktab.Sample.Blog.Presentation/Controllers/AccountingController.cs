@@ -36,7 +36,7 @@ public class AccountingController : Controller
                 return LocalRedirect("/Home/Index");
             }
                 
-            ViewData["ErrorMessage"] = "Login Failed";
+            TempData["ErrorMessage"] = "Login Failed";
         }
         return View("Login");
     }
@@ -61,7 +61,7 @@ public class AccountingController : Controller
             catch (Exception e)
             {
                 _logger.LogError(e,"Something went wrong in registering new user.");
-                ViewData["ErrorMessage"] = e.Message;
+                TempData["ErrorMessage"] = e.Message;
             }
         }
         return View("Register");
@@ -81,11 +81,17 @@ public class AccountingController : Controller
             catch (Exception e)
             {
                 _logger.LogError(e,$"Something went wrong when trying to log out user [{username}].");
-                ViewData["ErrorMessage"] = e.Message;
+                TempData["ErrorMessage"] = e.Message;
             }
         }
         return LocalRedirect("/Home/Index");
     }
+    [HttpGet]
+    public  IActionResult AccessDenied()
+    {
+        return View();
+    }
+    
     [Authorize]
     [HttpGet]
     public async Task<ActionResult<EditProfileModel>> EditProfile()
@@ -110,11 +116,11 @@ public class AccountingController : Controller
                 var res = await _userService.UpdateAsync(command, User.Identity?.Name ?? "");
                 if (res)
                     return RedirectToAction("Index", "Home");
-                ViewData["ErrorMessage"] = "invalid inputs";
+                TempData["ErrorMessage"] = "invalid inputs";
             }
             catch (Exception ex)
             {
-                ViewData["ErrorMessage"] = ex.Message;
+                TempData["ErrorMessage"] = ex.Message;
             }
         }
      

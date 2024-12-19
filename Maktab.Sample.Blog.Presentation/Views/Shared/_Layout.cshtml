@@ -24,9 +24,12 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    }
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="GetAllPosts">Posts</a>
                     </li>
@@ -59,13 +62,13 @@
         &copy; 2024 - Maktab Sample Blog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
-@if (!string.IsNullOrWhiteSpace(ViewData["ErrorMessage"]?.ToString()))
+@if (!string.IsNullOrWhiteSpace(TempData["ErrorMessage"]?.ToString()))
 {
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
         <div id="error-toast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div id="error-toast-body" class="toast-body">
-                    @(ViewData["ErrorMessage"]?.ToString() ?? "Something went wrong.")
+                    @(TempData["ErrorMessage"]?.ToString() ?? "Something went wrong.")
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>

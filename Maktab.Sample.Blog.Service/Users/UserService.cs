@@ -41,6 +41,7 @@ public class UserService : IUserService
         
         var user = command.MapToUser();
         var registerResult = await _userManager.CreateAsync(user, command.Password);
+        await _userManager.AddToRoleAsync(user, "Blogger");
         
         if (!registerResult.Succeeded)
             throw new RegistrationFailedException(registerResult.Errors.FirstOrDefault()?.Description ?? "Registration failed");

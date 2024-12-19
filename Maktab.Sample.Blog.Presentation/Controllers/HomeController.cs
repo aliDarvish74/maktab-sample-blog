@@ -22,6 +22,7 @@ public class HomeController : Controller
         return RedirectToPage("/Posts/Index");
     }
 
+    [Authorize(Roles = "Admin")]
     public IActionResult Privacy()
     {
         return View();

@@ -4,6 +4,7 @@ using Maktab.Sample.Blog.Domain.Roles;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Persistence;
 using Maktab.Sample.Blog.Persistence.Posts;
+using Maktab.Sample.Blog.Presentation.DataSeeders;
 using Maktab.Sample.Blog.Presentation.MapsterConfiguration;
 using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Posts;
@@ -48,7 +49,7 @@ builder.Services.ConfigureApplicationCookie(opt =>
 {
     opt.LoginPath = "/Accounting/Login";
     opt.LogoutPath = "/Accounting/Logout";
-    opt.AccessDeniedPath = "/Accounting/Login";
+    opt.AccessDeniedPath = "/Accounting/AccessDenied";
 });
 
 var app = builder.Build();
@@ -59,6 +60,9 @@ using (var scope = app.Services.CreateScope())
     // var db = scope.ServiceProvider.GetRequiredService<SqlServerDbContext>();
     if (db.Database.GetMigrations().Any())
         await db.Database.MigrateAsync();
+    
+    await DatabaseSeeder.SeedAsync(scope.ServiceProvider);
+
 }
 
 // Configure the HTTP request pipeline.

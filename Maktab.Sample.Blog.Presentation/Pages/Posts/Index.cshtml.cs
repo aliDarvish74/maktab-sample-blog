@@ -33,14 +33,27 @@ public class Index : PageModel
     public AddPostModel AddPostModel { get; set; }
     public async Task<IActionResult> OnPostCreateAsync()
     {
-        var postCommand = new AddPostCommand
+        if (ModelState.IsValid)
         {
-            Title = AddPostModel.PostTitle,
-            PostText = AddPostModel.PostText,
-            UserName = User.Identity?.Name ?? string.Empty
-        };
-        
-        var result = await _postService.AddPostAsync(postCommand);
+            var postCommand = new AddPostCommand
+            {
+                Title = AddPostModel.PostTitle,
+                PostText = AddPostModel.PostText,
+                UserName = User.Identity?.Name ?? string.Empty
+            };
+            var result = await _postService.AddPostAsync(postCommand);
+        }
+        else
+        {
+            var modelErrors = ModelState.Values.SelectMany(m => m.Errors);
+            var errorMessages = modelErrors.Select(m => m.ErrorMessage).ToList();
+            var message = string.Empty;
+            foreach (var errorMessage in errorMessages)
+                message += errorMessage + Environment.NewLine;
+
+            TempData["ErrorMessage"] = message;
+        }
+
         return RedirectToPage("/Posts/Index");
     }
     
@@ -55,7 +68,7 @@ public class Index : PageModel
         }
         catch (Exception ex)
         {
-            ViewData["ErrorMessage"] = ex.Message;
+            TempData["ErrorMessage"] = ex.Message;
         }
         
         return RedirectToPage("/Posts/Index");

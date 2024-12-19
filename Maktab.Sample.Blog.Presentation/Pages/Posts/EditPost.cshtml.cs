@@ -47,7 +47,7 @@ public class EditPost : PageModel
             catch (Exception e)
             {
                 _logger.LogError(e,$"Something went wrong while updating post: {command.Id}");
-                ViewData["ErrorMessage"] = e.Message;
+                TempData["ErrorMessage"] = e.Message;
             }
         } 
         return Page();
