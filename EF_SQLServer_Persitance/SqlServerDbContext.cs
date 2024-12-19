@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using EF_SQLServer_Persitance.Comments;
+using EF_SQLServer_Persitance.Likes;
+using EF_SQLServer_Persitance.Posts;
+using EF_SQLServer_Persitance.Users;
 
 namespace EF_SQLServer_Persitance
 {

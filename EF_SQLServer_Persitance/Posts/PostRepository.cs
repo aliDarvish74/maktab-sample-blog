@@ -2,7 +2,8 @@ using Maktab.Sample.Blog.Abstraction.Presistence;
 using Maktab.Sample.Blog.Domain.Posts;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Logging;
-namespace EF_SQLServer_Persitance;
+
+namespace EF_SQLServer_Persitance.Posts;
 
 
 public class PostRepository : GenericRepository<Post, SqlServerDbContext>, IPostRepository

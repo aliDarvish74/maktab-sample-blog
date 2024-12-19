@@ -1,5 +1,5 @@
 using Maktab.Sample.Blog.Presentation.Models.Accounting;
-using Maktab.Sample.Blog.Presentation.Pages.Models;
+using Maktab.Sample.Blog.Presentation.Pages.Posts.Models;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Users.Contracts.Commands;
 using Mapster;

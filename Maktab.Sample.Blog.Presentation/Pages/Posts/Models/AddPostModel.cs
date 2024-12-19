@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Maktab.Sample.Blog.Presentation.Resources;
 
-namespace Maktab.Sample.Blog.Presentation.Pages.Models;
+namespace Maktab.Sample.Blog.Presentation.Pages.Posts.Models;
 
 public class AddPostModel
 {

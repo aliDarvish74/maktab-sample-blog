@@ -1,7 +1,7 @@
 using Maktab.Sample.Blog.Domain.Comments;
-using Maktab.Sample.Blog.Domain.Posts;
 using Microsoft.EntityFrameworkCore;
-namespace EF_SQLServer_Persitance;
+
+namespace EF_SQLServer_Persitance.Comments;
 
 
 public static class CommentModelBuilderConfiguration

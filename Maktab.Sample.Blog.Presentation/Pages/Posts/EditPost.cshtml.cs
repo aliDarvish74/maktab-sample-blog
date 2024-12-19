@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using Maktab.Sample.Blog.Presentation.Pages.Models;
+using Maktab.Sample.Blog.Presentation.Pages.Posts.Models;
 using Maktab.Sample.Blog.Service.Posts;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
 using Mapster;

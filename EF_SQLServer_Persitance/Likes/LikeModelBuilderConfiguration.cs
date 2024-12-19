@@ -1,6 +1,7 @@
 using Maktab.Sample.Blog.Domain.Likes;
 using Microsoft.EntityFrameworkCore;
-namespace EF_SQLServer_Persitance;
+
+namespace EF_SQLServer_Persitance.Likes;
 
 
 public static class LikeModelBuilderConfiguration

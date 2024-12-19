@@ -1,9 +1,7 @@
-
-
 using Maktab.Sample.Blog.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
-namespace EF_SQLServer_Persitance;
+namespace EF_SQLServer_Persitance.Users;
 
 public static class UserModelBuilderConfiguration
 {

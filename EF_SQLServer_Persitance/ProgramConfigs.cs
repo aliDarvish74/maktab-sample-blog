@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EF_SQLServer_Persitance.Posts;
 
 namespace EF_SQLServer_Persitance
 {
